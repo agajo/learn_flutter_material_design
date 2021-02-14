@@ -199,7 +199,8 @@ final TextTheme theTextTheme =
           headline6: TextStyle(color: Colors.cyan), // AlertDialogのtitleなど
           subtitle1: TextStyle(color: Colors.orange), // ListTileのtitleなど
           subtitle2: TextStyle(color: Colors.brown),
-          bodyText1: TextStyle(color: Colors.pink), // Drawer内のListTileのtitleなど
+          bodyText1:
+              TextStyle(color: Colors.pink[200]), // Drawer内のListTileのtitleなど
           bodyText2: TextStyle(color: Colors.red), // 通常のTextなど
           // ボタンの色はprimaryColorやonPrimaryで上書きされるため、下の.copyWithでフォントを指定してわかるようにします。
           button: TextStyle(color: Colors.brown),
