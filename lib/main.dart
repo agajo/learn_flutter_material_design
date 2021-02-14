@@ -113,38 +113,52 @@ class _MyAppState extends State<MyApp> {
                       'ScriptCategory: ${materialLocalization.scriptCategory}');
                 },
               ),
-              ElevatedButton(onPressed: () {}, child: Text('ElevatedButton')),
-              Builder(
-                builder: (context) => OutlinedButton(
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                                title: Text('AlertDialog Title'),
-                                content: Text('AlertDialog Content'),
-                                actions: [
-                                  TextButton(
-                                      child: Text('Action1'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      }),
-                                  TextButton(
-                                      child: Text('Action2'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      }),
-                                ],
-                              ));
-                    },
-                    child: Text('show a dialog')),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                      onPressed: () {}, child: Text('ElevatedButton')),
+                  ElevatedButton(
+                      onPressed: null, child: Text('ElevatedButton')),
+                ],
               ),
-              TextButton(
-                child: Text('change locale'),
-                onPressed: () {
-                  setState(() {
-                    localeIndex = (localeIndex + 1) % supportedLocales.length;
-                  });
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Builder(
+                    builder: (context) => OutlinedButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: Text('AlertDialog Title'),
+                                    content: Text('AlertDialog Content'),
+                                    actions: [
+                                      TextButton(
+                                          child: Text('Action1'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          }),
+                                      TextButton(
+                                          child: Text('Action2'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          }),
+                                    ],
+                                  ));
+                        },
+                        child: Text('show a dialog')),
+                  ),
+                  TextButton(
+                    child: Text('change locale'),
+                    onPressed: () {
+                      setState(() {
+                        localeIndex =
+                            (localeIndex + 1) % supportedLocales.length;
+                      });
+                    },
+                  ),
+                ],
               ),
               Card(
                   child: Padding(
@@ -160,7 +174,7 @@ class _MyAppState extends State<MyApp> {
               ),
               Expanded(
                 child: ListView(children: [
-                  for (int i = 0; i < 4; i++)
+                  for (int i = 0; i < 7; i++)
                     ListTile(
                       leading: Icon(Icons.translate),
                       title: Text('ListTile Title'),
@@ -217,7 +231,7 @@ final TextTheme theTextTheme =
           caption: TextStyle(color: Colors.purple), // ListTileのsubtitleなど
           overline: TextStyle(color: Colors.brown),
         )).copyWith(
-  button: GoogleFonts.pressStart2p(), // ElevatedButtonのテキストなど
+  button: GoogleFonts.sofia(), // ElevatedButtonのテキストなど
 );
 
 /// 色のないColorScheme
