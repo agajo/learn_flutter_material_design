@@ -31,139 +31,147 @@ class _MyAppState extends State<MyApp> {
         textTheme:
             currentPage == 2 ? theTextTheme : Typography.material2018().black,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('My Awesome App'),
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.admin_panel_settings_sharp),
-          onPressed: () {},
-        ),
-        drawer: Drawer(
-            child: ListView(children: [
-          DrawerHeader(child: Text('DrawerHeader')),
-          ListTile(
-            leading: Icon(Icons.translate),
-            title: Text('ListTile Title'),
-            subtitle: Text('ListTile Subtitle'),
-            trailing: Icon(Icons.alarm_on_rounded),
-            onTap: () {},
+      home: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            // Drawerが開けなくなるのでleadingはコメントアウト。
+            // leading: Icon(Icons.assignment_late),
+            title: Text('My Awesome App'),
+            actions: [
+              IconButton(
+                  icon: Icon(Icons.airline_seat_recline_normal_rounded),
+                  onPressed: () {}),
+              IconButton(
+                  icon: Icon(Icons.baby_changing_station_outlined),
+                  onPressed: () {}),
+            ],
+            flexibleSpace: FlexibleSpaceBar(
+              background: FlutterLogo(),
+            ),
+            bottom: TabBar(tabs: [
+              Tab(icon: Icon(Icons.add_location_sharp)),
+              Tab(text: 'tab'),
+            ]),
           ),
-          ListTile(
-            leading: Icon(Icons.wifi_rounded),
-            title: Text('ListTile Title'),
-            subtitle: Text('ListTile Subtitle'),
-            trailing: Icon(Icons.adjust_rounded),
-            onTap: () {},
+          floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.admin_panel_settings_sharp),
+            onPressed: () {},
           ),
-          AboutListTile(
-            applicationName: 'ApplicationName',
-            applicationLegalese: 'ApplicationLegalese',
-            applicationIcon: Icon(Icons.announcement),
-            applicationVersion: 'v1.0.0',
-            icon: Icon(Icons.admin_panel_settings),
-            child: Text('AboutListTile Child'),
-            aboutBoxChildren: [
-              Text('AboutBoxChildren 1'),
-              Text('AboutBoxChildren 2'),
+          drawer: Drawer(
+              child: ListView(children: [
+            DrawerHeader(child: Text('DrawerHeader')),
+            for (int i = 0; i < 3; i++)
+              ListTile(
+                leading: Icon(Icons.wifi_rounded),
+                title: Text('ListTile Title'),
+                subtitle: Text('ListTile Subtitle'),
+                trailing: Icon(Icons.adjust_rounded),
+                onTap: () {},
+              ),
+            AboutListTile(
+              applicationName: 'ApplicationName',
+              applicationLegalese: 'ApplicationLegalese',
+              applicationIcon: Icon(Icons.announcement),
+              applicationVersion: 'v1.0.0',
+              icon: Icon(Icons.admin_panel_settings),
+              child: Text('AboutListTile Child'),
+              aboutBoxChildren: [
+                Text('AboutBoxChildren 1'),
+                Text('AboutBoxChildren 2'),
+              ],
+            ),
+          ])),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: currentPage,
+            onTap: (value) {
+              setState(() {
+                currentPage = value;
+              });
+            },
+            items: [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.check_circle_rounded), label: 'default'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.leaderboard), label: 'colorScheme'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.timer), label: 'textTheme'),
             ],
           ),
-        ])),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: currentPage,
-          onTap: (value) {
-            setState(() {
-              currentPage = value;
-            });
-          },
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.check_circle_rounded), label: 'default'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.leaderboard), label: 'colorScheme'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.timer), label: 'textTheme'),
-          ],
-        ),
-        body: Column(
-          children: [
-            Text('This is a sentence in English.'),
-            Text('日本語で書かれた文です。'),
-            Text('นี่คือประโยคที่เขียนเป็นภาษาไทย'),
-            Builder(
-              builder: (context) {
-                final materialLocalization =
-                    Localizations.of<MaterialLocalizations>(
-                        context, MaterialLocalizations);
-                return Text('locale: ${Localizations.localeOf(context)}\n'
-                    'MaterialLocalization: ${materialLocalization.runtimeType}\n'
-                    'ScriptCategory: ${materialLocalization.scriptCategory}');
-              },
-            ),
-            ElevatedButton(onPressed: () {}, child: Text('ElevatedButton')),
-            Builder(
-              builder: (context) => OutlinedButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              title: Text('AlertDialog Title'),
-                              content: Text('AlertDialog Content'),
-                              actions: [
-                                TextButton(
-                                    child: Text('Action1'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    }),
-                                TextButton(
-                                    child: Text('Action2'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    }),
-                              ],
-                            ));
-                  },
-                  child: Text('show a dialog')),
-            ),
-            TextButton(
-              child: Text('change locale'),
-              onPressed: () {
-                setState(() {
-                  localeIndex = (localeIndex + 1) % supportedLocales.length;
-                });
-              },
-            ),
-            Card(
-                child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Text('Card'),
-            )),
-            TextFormField(
-              decoration:
-                  InputDecoration(labelText: 'must be less than 3 characters■'),
-              autovalidateMode: AutovalidateMode.always,
-              validator: (value) =>
-                  value.length < 3 ? null : 'input is invalid',
-            ),
-            Expanded(
-              child: ListView(children: [
-                ListTile(
-                  leading: Icon(Icons.translate),
-                  title: Text('ListTile Title'),
-                  subtitle: Text('ListTile Subtitle'),
-                  trailing: Icon(Icons.alarm_on_rounded),
-                  onTap: () {},
-                ),
-                ListTile(
-                  leading: Icon(Icons.wifi_rounded),
-                  title: Text('ListTile Title'),
-                  subtitle: Text('ListTile Subtitle'),
-                  trailing: Icon(Icons.adjust_rounded),
-                  onTap: () {},
-                ),
-              ]),
-            )
-          ],
+          body: Column(
+            children: [
+              Text('This is a sentence in English.'),
+              Text('日本語で書かれた文です。'),
+              Text('นี่คือประโยคที่เขียนเป็นภาษาไทย'),
+              Builder(
+                builder: (context) {
+                  final materialLocalization =
+                      Localizations.of<MaterialLocalizations>(
+                          context, MaterialLocalizations);
+                  return Text('locale: ${Localizations.localeOf(context)}\n'
+                      'MaterialLocalization: ${materialLocalization.runtimeType}\n'
+                      'ScriptCategory: ${materialLocalization.scriptCategory}');
+                },
+              ),
+              ElevatedButton(onPressed: () {}, child: Text('ElevatedButton')),
+              Builder(
+                builder: (context) => OutlinedButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: Text('AlertDialog Title'),
+                                content: Text('AlertDialog Content'),
+                                actions: [
+                                  TextButton(
+                                      child: Text('Action1'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      }),
+                                  TextButton(
+                                      child: Text('Action2'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      }),
+                                ],
+                              ));
+                    },
+                    child: Text('show a dialog')),
+              ),
+              TextButton(
+                child: Text('change locale'),
+                onPressed: () {
+                  setState(() {
+                    localeIndex = (localeIndex + 1) % supportedLocales.length;
+                  });
+                },
+              ),
+              Card(
+                  child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text('Card'),
+              )),
+              TextFormField(
+                decoration: InputDecoration(
+                    labelText: 'must be less than 3 characters■'),
+                autovalidateMode: AutovalidateMode.always,
+                validator: (value) =>
+                    value.length < 3 ? null : 'input is invalid',
+              ),
+              Expanded(
+                child: ListView(children: [
+                  for (int i = 0; i < 4; i++)
+                    ListTile(
+                      leading: Icon(Icons.translate),
+                      title: Text('ListTile Title'),
+                      subtitle: Text('ListTile Subtitle'),
+                      trailing: Icon(Icons.alarm_on_rounded),
+                      onTap: () {},
+                    ),
+                ]),
+              )
+            ],
+          ),
         ),
       ),
     );
