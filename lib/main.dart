@@ -87,7 +87,9 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Text('normal text'),
+            Text('This is a sentence in English.'),
+            Text('日本語で書かれた文です。'),
+            Text('นี่คือประโยคที่เขียนเป็นภาษาไทย'),
             Builder(
               builder: (context) {
                 final materialLocalization =
